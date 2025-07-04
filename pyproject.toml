@@ -1,0 +1,38 @@
+[project]
+name = "agentdatashuttle_adspy"
+version = "1.0.3"
+description = "Agent Data Shuttle - Python SDK"
+authors = [
+  { name="Knowyours", email="agentdatashuttle@knowyours.co" }
+]
+license = { text = "Apache-2.0" }
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    'langchain',
+    'langchain-core',
+    'langchain-community',
+    'langgraph',
+    'langgraph-prebuilt',
+    'python-dotenv',
+    'requests',
+    'pydantic',
+    'pika',
+    'python-socketio[client]',
+    'markdown',
+    'yagmail',
+    'slackify-markdown',
+    'slack-sdk'
+]
+
+[project.urls]
+Homepage = "https://agentdatashuttle.knowyours.co"
+Repository = "https://github.com/agentdatashuttle/python-sdk"
+Issues = "https://github.com/agentdatashuttle/python-sdk/issues"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
