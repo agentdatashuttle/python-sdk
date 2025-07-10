@@ -20,10 +20,16 @@ class ADSRabbitMQClientParams:
 class ADSBridgeClientParams:
     connection_string: str
     path_prefix: str
+    ads_subscribers_pool_id: str
 
-    def __init__(self, connection_string: str, path_prefix: str):
+    def __init__(self, connection_string: str, path_prefix: str, ads_subscribers_pool_id: str):
         self.connection_string = connection_string
         self.path_prefix = path_prefix
+
+        if(not ads_subscribers_pool_id or ads_subscribers_pool_id == ""):
+            raise ValueError("'ads_subscribers_pool_id' cannot be empty or None")
+        
+        self.ads_subscribers_pool_id = ads_subscribers_pool_id
 
 class RedisParams:
     host: str
