@@ -1,0 +1,14 @@
+langchain
+langchain-core
+langchain-community
+langgraph
+langgraph-prebuilt
+python-dotenv
+requests
+pydantic
+pika
+python-socketio[client]
+markdown
+yagmail
+slackify-markdown
+slack-sdk

@@ -120,9 +120,3 @@ pip install --index-url https://test.pypi.org/simple/ agentdatashuttle_adspy
 ```bash
 pip install agentdatashuttle_adspy
 ```
-
-```python
-from ads import ADSClient
-
-client = ADSClient()
-```

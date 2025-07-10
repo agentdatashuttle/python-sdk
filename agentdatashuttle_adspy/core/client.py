@@ -100,7 +100,8 @@ class ADSBridgeClient:
         """        
         self.socket_io_client.connect(
                                         url=self.bridge_client_params.connection_string,
-                                        socketio_path=self.bridge_client_params.path_prefix + "/socket.io" if self.bridge_client_params.path_prefix != "/" else "/socket.io"
+                                        socketio_path=self.bridge_client_params.path_prefix + "/socket.io" if self.bridge_client_params.path_prefix != "/" else "/socket.io",
+                                        auth={"ads_subscribers_pool_id": self.bridge_client_params.ads_subscribers_pool_id}
                                     )
 
     def disconnect(self):

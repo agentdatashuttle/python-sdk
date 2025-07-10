@@ -111,9 +111,9 @@ Publish events to ADS subscribers.
 ```python
 import os
 import time
-from ads_py.core.publisher import ADSPublisher
-from ads_py.core.client import ADSClientParams
-from ads_py.models.models import ADSDataPayload
+from agentdatashuttle_adspy.core.publisher import ADSPublisher
+from agentdatashuttle_adspy.core.client import ADSClientParams
+from agentdatashuttle_adspy.models.models import ADSDataPayload
 
 client_params = ADSClientParams(
     host=os.getenv("ADS_HOST", "localhost"),
@@ -151,11 +151,11 @@ import os
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage
 from langgraph.prebuilt import create_react_agent
-from ads_py.core.subscriber import ADSSubscriber
-from ads_py.core.dataconnector import ADSDataConnector
-from ads_py.core.client import ADSBridgeClientParams
-from ads_py.models.models import ADSDataPayload
-from ads_py.core.notifications import EmailNotificationChannel, SlackNotificationChannel
+from agentdatashuttle_adspy.core.subscriber import ADSSubscriber
+from agentdatashuttle_adspy.core.dataconnector import ADSDataConnector
+from agentdatashuttle_adspy.core.client import ADSBridgeClientParams
+from agentdatashuttle_adspy.models.models import ADSDataPayload
+from agentdatashuttle_adspy.core.notifications import EmailNotificationChannel, SlackNotificationChannel
 
 # Define the tools for the agent to use
 agent_tools = [toolA, toolB, see_k8s_logs_tool]
@@ -173,6 +173,7 @@ def invoke_agent(prompt: str, payload: ADSDataPayload) -> str:
 ads_bridge_client_params = ADSBridgeClientParams(
     connection_string="http://localhost:9999",
     path_prefix="/ads_bridge",
+    ads_subscribers_pool_id="<a_random_uuid>"  # Replace with your actual pool ID to group horizontally scaled replicas of ADS Subscribers
 )
 
 data_connector_one = ADSDataConnector(
@@ -225,7 +226,7 @@ Use the n8n nodes provided in the [`via-rabbitmq/n8n/nodes`](via-rabbitmq/n8n/no
 Send notifications via Email or Slack when events are processed:
 
 ```python
-from ads_py.core.notifications import EmailNotificationChannel, SlackNotificationChannel
+from agentdatashuttle_adspy.core.notifications import EmailNotificationChannel, SlackNotificationChannel
 
 email_channel = EmailNotificationChannel(
     "Agent description",
@@ -250,11 +251,11 @@ Pass these channels to the `ADSSubscriber` to enable notifications.
 
 ## Types
 
-All core types are defined in [`ads_py/models/models.py`](ads_py/models/models.py):
+All core types are defined in [`agentdatashuttle_adspy/models/models.py`](agentdatashuttle_adspy/models/models.py):
 
-- [`ADSDataPayload`](ads_py/models/models.py)
-- [`ADSClientParams`](ads_py/core/client.py)
-- [`ADSBridgeClientParams`](ads_py/core/client.py)
+- [`ADSDataPayload`](agentdatashuttle_adspy/models/models.py)
+- [`ADSClientParams`](agentdatashuttle_adspy/core/client.py)
+- [`ADSBridgeClientParams`](agentdatashuttle_adspy/core/client.py)
 
 ---
 
