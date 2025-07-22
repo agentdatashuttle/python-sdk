@@ -1,6 +1,6 @@
 [project]
 name = "agentdatashuttle_adspy"
-version = "1.0.8"
+version = "1.0.9"
 description = "Agent Data Shuttle - Python SDK"
 authors = [
   { name="Knowyours", email="agentdatashuttle@knowyours.co" }

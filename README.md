@@ -89,6 +89,7 @@ All combinations are possible:
 ### Prerequisites for ADS Publisher
 
 - **Python 3.8+**
+
 - **RabbitMQ** instance
 
   > For event queueing and secure event publishing
@@ -207,11 +208,11 @@ def invoke_agent(prompt: str, payload: ADSDataPayload) -> str:
 ads_bridge_client_params = ADSBridgeClientParams(
     connection_string="http://localhost:9999",
     path_prefix="/ads_bridge",
-    ads_subscribers_pool_id="<a_random_uuid>"  # Replace with your actual pool ID to group horizontally scaled replicas of ADS Subscribers
+    ads_subscribers_pool_id="<a_random_uuid>"  # Replace with your actual pool ID to group horizontally scaled replicas of ADS Subscribers - use https://agentdatashuttle.knowyours.co/pool-id-generator to make one if needed
 )
 
 data_connector_one = ADSDataConnector(
-    connector_name="UptimeKumaConnector",
+    connector_name="K8sMonitoringConnector",
     bridge_client_params=ads_bridge_client_params
 )
 
