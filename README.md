@@ -78,7 +78,9 @@ All combinations are possible:
 - **Notification Channels:** Email/Slack notifications on event processing.
 - **Interoperability:** Mix Python, NodeJS, and n8n publishers/subscribers.
 
-![Architecture Diagram](https://github.com/user-attachments/assets/45d69052-21e4-4b6a-ad67-cdb21034825a)
+> ![Before and After ADS](https://agentdatashuttle.knowyours.co/before-after-illustration.png)
+>
+> ![Architecture Diagram](https://agentdatashuttle.knowyours.co/architecture-diagram.png)
 
 ---
 
