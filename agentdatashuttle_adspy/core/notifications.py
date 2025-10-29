@@ -144,6 +144,9 @@ class ADSNotificationEngine(ABC):
 # EmailNotificationChannel - Class that can be used to send emails
 class EmailNotificationChannel(ADSNotificationEngine):
     """Class that can be used to send emails via SMTP."""
+
+    VALID_SMTP_PORTS = (25, 465, 587, 2525)
+
     def __init__(
         self,
         agent_description: str,
@@ -155,20 +158,27 @@ class EmailNotificationChannel(ADSNotificationEngine):
         to_email_address: str,
         subject: str = "Notification from ADS Subscriber"
     ):
-        if not all([
-            smtp_host, smtp_port, smtp_username, smtp_password, from_email_address, to_email_address
-        ]):
+        # Validate basic SMTP config
+        if not all([smtp_host, smtp_port, from_email_address, to_email_address]):
             err_msg = (
-                "SMTP configuration needs all fields: host, port, smtp_username, smtp_password, "
-                "from_email_address, to_email_address."
+                "SMTP configuration requires all fields: host, port, "
+                "from_email_address, and to_email_address."
             )
             logger.error(err_msg)
             raise ValueError(err_msg)
-        if smtp_port not in (465, 587):
-            err_msg = "SMTP port must be either 465 (secure) or 587 (non-secure)."
+
+        # Validate port
+        if smtp_port not in self.VALID_SMTP_PORTS:
+            err_msg = (
+                f"Invalid SMTP port '{smtp_port}'. "
+                f"Allowed ports are {self.VALID_SMTP_PORTS}. "
+                "Use 25 for relay, 465 for SSL/TLS, 587 for STARTTLS, or 2525 as an alternative."
+            )
             logger.error(err_msg)
             raise ValueError(err_msg)
+
         super().__init__(agent_description)
+
         self._smtp_host = smtp_host
         self._smtp_port = smtp_port
         self._smtp_username = smtp_username
@@ -177,14 +187,18 @@ class EmailNotificationChannel(ADSNotificationEngine):
         self._to_email_address = to_email_address
         self._subject = subject
 
+        # Determine connection mode
+        use_ssl = smtp_port == 465
+        use_starttls = smtp_port in (587, 25, 2525)
+
         # Setup yagmail SMTP client
         self._yag = yagmail.SMTP(
             user=self._smtp_username,
             password=self._smtp_password,
             host=self._smtp_host,
             port=self._smtp_port,
-            smtp_starttls=(self._smtp_port == 587),
-            smtp_ssl=(self._smtp_port == 465)
+            smtp_ssl=use_ssl,
+            smtp_starttls=use_starttls,
         )
 
     @property
